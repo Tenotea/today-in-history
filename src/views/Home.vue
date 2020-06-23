@@ -1,18 +1,18 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <p>Home page</p>
+    <HistoricEvent/>
+    Icons made by <a href="https://www.flaticon.com/authors/becris" title="Becris">Becris</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import HistoricEvent from '@/components/HistoricEvent.vue'
 
 export default {
   name: 'Home',
   components: {
-    HelloWorld
+    HistoricEvent
   }
 }
 </script>
