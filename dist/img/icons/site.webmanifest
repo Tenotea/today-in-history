@@ -1,0 +1,19 @@
+{
+    "name": "Today In History",
+    "short_name": "Today In History",
+    "icons": [
+        {
+            "src": "/android-chrome-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/android-chrome-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ],
+    "theme_color": "#081331",
+    "background_color": "#081331",
+    "display": "standalone"
+}

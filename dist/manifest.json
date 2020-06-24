@@ -1,6 +1,6 @@
 {
   "name": "Today in History",
-  "short_name": "TodayIH",
+  "short_name": "Today In History",
   "theme_color": "#081331",
   "icons": [
     {
@@ -28,5 +28,5 @@
   ],
   "start_url": ".",
   "display": "standalone",
-  "background_color": "#000000"
+  "background_color": "#081331"
 }
