@@ -66,6 +66,7 @@ export default {
   .main{
     .title{
       font-size: 50px;
+      font-family: 'Berkshire Swash', cursive;
       @media screen and (max-width: 540px){
         font-size: 33px;
         padding-top: 50px;
@@ -112,6 +113,7 @@ export default {
       color: white;
       font-size: 20px;
       font-weight: bold;
+      font-family: 'Josefin Sans', sans-serif;
       outline: none;
       cursor: pointer;
       border-radius: 7px;
@@ -170,6 +172,7 @@ export default {
         color: #057FB5;
         text-decoration: none;
         line-height: 1.5em;
+        font-family: 'Berkshire Swash', cursive;
       }
     }
   }

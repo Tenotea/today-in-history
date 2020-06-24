@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.0df68dcf8fcdb0217895ffd7e91929b8.js"
+  "/precache-manifest.f091d4f8d527a9c6e3c2ab2e5f4ca7e5.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "today-in-history"});
