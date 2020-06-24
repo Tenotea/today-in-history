@@ -16,36 +16,53 @@ export default {
 
   #canvas{
     width: 100%;
-    height: 100vh;
-    background: linear-gradient(-30deg,#140303 40%, #081331);
+    min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
     perspective: 2000px;
     .title{
-      font-size: 70px;
+      font-size: 50px;
       margin-bottom: 30px;
+      @media screen and (max-width: 540px){
+        font-size: 32px;;
+        .caption{
+          font-size: 14px;
+        }
+      }
     }
     .caption{
-      font-size: 30px;
+      font-size: 20px;
       margin-bottom: 40px;
+      @media screen and (max-width: 540px){
+        font-size: 14px;
+      }
     }
     .redirect{
+      padding: 14px 25px;
       border: none;
-      padding: 10px 30px;
-      background: #712525;
+      background: #13456e;
       color: white;
-      font-family: 'candara';
-      border-radius: 5px;
-      box-shadow: 0px 15px 3px -10px #24242480;
-      transition: .3s all cubic-bezier(0.165, 0.84, 0.44, 1);
-      font-size: 18px;
+      font-size: 16px;
+      font-weight: bold;
+      outline: none;
+      cursor: pointer;
+      border-radius: 7px;
+      margin-top: 30px;
+      position: relative;
+      box-shadow: 0px 3px 6px 0px #0f3147;
+      transition-property: box-shadow, transform;
+      transition-duration: .4s ;
+      transition-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1);
       &:hover{
-        transform: translateY(-3px);
-        box-shadow: 0px 23px 3px -18px #24242480;
-        cursor: pointer;
-        // box-shadow: 0px 1px 1px #0a1b35;
+        transform: translateY(-6px);
+        box-shadow: 0px 1px 1px 0px #0f3147;
+      }
+      @media screen and (max-width: 1000px) {
+        font-size: 14px;
+        padding: 12px 25px;
+        border-radius: 3px;
       }
     }
   }

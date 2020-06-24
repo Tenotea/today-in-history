@@ -1,24 +1,62 @@
 <template>
   <div class="main">
-    <h1 class="title"> Today In History
-      <p> Today's Date: June 24, 2020</p>
+    <h1 class="title"> Today In History!
+      <p>Today's Date: {{ todaysDate.fullDate }}. </p>
     </h1>
-    <p class="happening"> {{this.$store.state.happening}} <span class="date"> -June 23, 2019 </span> </p>
-    <button class="refresh" @click="refreshHappening()"> More Happenings </button>
+    <p class="happening"> {{historicEvent.text}} <span class="date"> -{{todaysDate.justMonth}} 23, {{ historicEvent.year}} </span> </p>
+    <button :class="`${ isLoading } refresh`" @click="refreshHappening()"> <span class="text"> {{ buttonStatus ? buttonStatus : 'More Happenings'}} </span> <span class="spinner"> </span> </button>
+    <p class="credits"> A vue.js progressive web app by Adelakun Emmanuel. Hosted on <a href="https://www.netlify.app"> Netlify. </a> <br> View source code on <a href="https://github.com/Tenotea/today-in-history"> GitHub. </a> </p>
   </div>
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapMutations } from 'vuex'
 export default {
   name: 'HistoricEvent',
+  data () {
+    return {
+      historicEvent: this.$store.state.happening,
+      isLoading: '',
+      buttonStatus: ''
+    }
+  },
   created () {
-    this.getAnHappening()
+    this.isLoading = 'loading'
+    this.getAnHappening().then(res => {
+      this.setNewHappening(res.data)
+      this.isLoading = ''
+    }).catch(err => {
+      console.log(err)
+      this.buttonStatus = err
+      this.isLoading = 'error'
+    })
   },
   methods: {
     ...mapActions(['getAnHappening']),
+    ...mapMutations(['setNewHappening']),
     refreshHappening () {
-      this.getAnHappening()
+      this.isLoading = 'loading'
+      this.getAnHappening().then(res => {
+        this.setNewHappening(res.data)
+        this.isLoading = ''
+      }).catch(err => {
+        console.log('Error occured: ' + err)
+        this.buttonStatus = err
+        this.isLoading = 'error'
+      })
+    }
+  },
+  computed: {
+    todaysDate () {
+      const d = new Date(Date.now())
+      const ds = d.toDateString().split(' ')
+      const i = d.toDateString().split(' ').length - 2
+      ds[i] = ds[i] + ','
+      const month = ds[1]
+      return {
+        fullDate: ds.join(' '),
+        justMonth: month
+      }
     }
   }
 }
@@ -26,23 +64,19 @@ export default {
 
 <style scoped lang="scss">
   .main{
-    width: 100%;
-    height: 100vh;
-    background: linear-gradient(-30deg,#140303 40%, #081331);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    perspective: 2000px;
-    position: relative;
     .title{
       font-size: 50px;
-      position: absolute;
-      top: 100px;
+      @media screen and (max-width: 540px){
+        font-size: 33px;
+        padding-top: 50px;
+      }
       p{
         font-weight: 300;
         font-size: 20px;
         margin-top: 20px;
+        @media screen and (max-width: 540px){
+          font-size: 15px;
+        }
       }
     }
     .happening{
@@ -52,8 +86,16 @@ export default {
       text-align: left;
       font-weight: bold;
       transform: scale(1.3);
-      margin: 50px auto;
-      margin-top: 90px;
+      margin: 90px auto;
+      @media screen and (max-width: 1000px) {
+        transform: scale(1);
+        margin: 30px auto;
+        padding: 0px 20px;
+        text-align: center;
+      }
+      @media screen and (max-width: 540px) {
+        transform: scale(0.8);
+      }
       .date{
         margin-top: 20px;
         text-align: left;
@@ -66,13 +108,69 @@ export default {
     .refresh{
       padding: 20px 30px;
       border: none;
-      background: #712525;
+      background: #13456e;
       color: white;
       font-size: 20px;
       font-weight: bold;
+      outline: none;
+      cursor: pointer;
       border-radius: 7px;
-      margin-top: 50px;
+      margin-top: 30px;
       position: relative;
+      box-shadow: 0px 3px 6px 0px #0f3147;
+      transition-property: box-shadow, transform;
+      transition-duration: .4s ;
+      transition-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1);
+      &:hover{
+        transform: translateY(-6px);
+        box-shadow: 0px 1px 1px 0px #0f3147;
+      }
+      @media screen and (max-width: 1000px) {
+        font-size: 14px;
+        padding: 12px 25px;
+        border-radius: 3px;
+      }
+      .spinner{
+        display: none;
+      }
+      &.error{
+        color: #ff5f82;
+      }
+      &.loading{
+        .spinner{
+          width: 30px;
+          height: 30px;
+          display: inline-block;
+          margin: 0px auto;
+          border: 2px solid #081331;
+          border-radius: 50%;
+          border-top-color: transparent;
+          animation: spinner .4s linear 0s infinite forwards;
+
+          @keyframes spinner {
+            from{
+              transform: rotate(0deg);
+            } to {
+              transform: rotate(360deg);
+            }
+          }
+        }
+        .text{
+          display: none;
+        }
+      }
+    }
+
+    .credits{
+      margin: 40px auto;
+      text-align: center;
+      padding: 0px 20px;
+      a{
+        font-weight: bold;
+        color: #057FB5;
+        text-decoration: none;
+        line-height: 1.5em;
+      }
     }
   }
 </style>

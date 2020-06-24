@@ -6,7 +6,10 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    happening: 'John Hinckley is found not guilty by reason of insanity for the attempted assassination of U.S. President Ronald Reagan.'
+    happening: {
+      text: 'John Hinckley is found not guilty by reason of insanity for the attempted assassination of U.S. President Ronald Reagan.',
+      year: '1982'
+    }
   },
   mutations: {
     setNewHappening (state, happening) {
@@ -20,7 +23,7 @@ export default new Vuex.Store({
         month: d.getMonth() + 1,
         day: d.getDate()
       }
-      axios({
+      return axios({
         method: 'GET',
         url: `https://numbersapi.p.rapidapi.com/${date.month}/${date.day}/date`,
         headers: {
@@ -34,13 +37,6 @@ export default new Vuex.Store({
           json: true
         }
       })
-        .then((response) => {
-          console.log(response)
-          context.commit('setNewHappening', response.data.text)
-        })
-        .catch((error) => {
-          console.log(error)
-        })
     }
   },
   modules: {
