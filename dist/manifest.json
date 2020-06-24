@@ -1,6 +1,7 @@
 {
-  "name": "Today in History",
-  "short_name": "Today In History",
+  "name": "Today in History!",
+  "short_name": "Today in History!",
+  "description": "Find out what happened on this day in history!",
   "theme_color": "#081331",
   "icons": [
     {
