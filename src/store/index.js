@@ -6,14 +6,11 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    happening: {
-      text: 'John Hinckley is found not guilty by reason of insanity for the attempted assassination of U.S. President Ronald Reagan.',
-      year: '1982'
-    }
+    happening: {}
   },
   mutations: {
-    setNewHappening (state, happening) {
-      state.happening = happening
+    setNewHappening (state, newHap) {
+      state.happening = newHap
     }
   },
   actions: {

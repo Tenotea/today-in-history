@@ -3,7 +3,7 @@
     <h1 class="title"> Today In History!
       <p>Today's Date: {{ todaysDate.fullDate }}. </p>
     </h1>
-    <p class="happening"> {{historicEvent.text}} <span class="date"> -{{todaysDate.justMonth}} 23, {{ historicEvent.year}} </span> </p>
+    <p class="happening"> {{historicEvent.text}} <span class="date"> -{{todaysDate.justMonth}} {{ historicEvent.year}} </span> </p>
     <button :class="`${ isLoading } refresh`" @click="refreshHappening()"> <span class="text"> {{ buttonStatus ? buttonStatus : 'More Happenings'}} </span> <span class="spinner"> </span> </button>
     <p class="credits"> A vue.js progressive web app by Adelakun Emmanuel. Hosted on <a href="https://www.netlify.app"> Netlify. </a> <br> View source code on <a href="https://github.com/Tenotea/today-in-history"> GitHub. </a> </p>
   </div>
@@ -15,7 +15,6 @@ export default {
   name: 'HistoricEvent',
   data () {
     return {
-      historicEvent: this.$store.state.happening,
       isLoading: '',
       buttonStatus: ''
     }
@@ -26,7 +25,6 @@ export default {
       this.setNewHappening(res.data)
       this.isLoading = ''
     }).catch(err => {
-      console.log(err)
       this.buttonStatus = err
       this.isLoading = 'error'
     })
@@ -40,7 +38,6 @@ export default {
         this.setNewHappening(res.data)
         this.isLoading = ''
       }).catch(err => {
-        console.log('Error occured: ' + err)
         this.buttonStatus = err
         this.isLoading = 'error'
       })
@@ -55,8 +52,11 @@ export default {
       const month = ds[1]
       return {
         fullDate: ds.join(' '),
-        justMonth: month
+        justMonth: month + ' ' + ds[2]
       }
+    },
+    historicEvent () {
+      return this.$store.state.happening
     }
   }
 }
